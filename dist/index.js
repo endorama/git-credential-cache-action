@@ -113,7 +113,7 @@ function run() {
             core.info('Set git credential helper to: cache');
             core.info(`Credentials timeout set to ${timeout}`);
             action.gitCredentialCacheStore(protocol, host, username, password);
-            core.debug(`Stored credentials for ${protocol}://${username}:REDACTED@${host}`);
+            core.info(`Stored credentials for ${protocol}://${username}:REDACTED@${host}`);
         }
         catch (error) {
             core.setFailed(error.message);
