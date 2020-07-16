@@ -28,3 +28,16 @@ jobs:
     - run: cat .git/config
     # we try to clone a private repo with set credentials
     - run: git clone https://github.com/endorama/git-credential-cache-ci-testing-repo.git
+
+  testII: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        sudo apt-get install libsecret-1-0 libsecret-1-dev libglib2.0-dev
+        sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
+        git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+    - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}\npassword=${{ secrets.PAT }}" | git credential-cache store
+    - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}" | git credential-cache get
+    - run: cat .git/config
+    # we try to clone a private repo with set credentials
+    - run: git clone https://github.com/endorama/git-credential-cache-ci-testing-repo.git
