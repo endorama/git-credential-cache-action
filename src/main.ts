@@ -1,16 +1,22 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as action from './action'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const timeout: number = parseInt(core.getInput('timeout'))
+    const protocol: string = core.getInput('protocol')
+    const host: string = core.getInput('host')
+    const username: string = core.getInput('username')
+    const password: string = core.getInput('password')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    action.gitConfigureCredentialCacheHelper(timeout)
+    core.info('Set git credential helper to: cache')
+    core.info(`Credentials timeout set to ${timeout}`)
 
-    core.setOutput('time', new Date().toTimeString())
+    action.gitCredentialCacheStore(protocol, host, username, password)
+    core.debug(
+      `Stored credentials for ${protocol}://${username}:REDACTED@${host}`
+    )
   } catch (error) {
     core.setFailed(error.message)
   }
