@@ -1,0 +1,29 @@
+credential-cache cannot be used because "each step runs in a separate process". As steps cannot share env variables, is
+legit to think they can't share memory too.
+
+https://www.softwaredeveloper.blog/git-credential-storage-libsecret
+https://blog.scottlowe.org/2016/11/21/gnome-keyring-git-credential-helper/
+https://askubuntu.com/questions/773455/what-is-the-correct-way-to-use-git-with-gnome-keyring-and-https-repos
+
+===
+
+Trying to use credential-libsecret:
+- dbus daemon should be started, but X11 is missing
+- for the same reason as above, if steps do not share the same running processes sharing the same D-Bus session is not
+  going to work
+
+https://unix.stackexchange.com/questions/105964/launch-a-fake-minimal-x-session-for-pulseaudio-dbus
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=690530
+https://bugzilla.redhat.com/show_bug.cgi?id=172231
+
+===
+
+Last step:
+[http "https://github.com/"]
+	extraheader = AUTHORIZATION: basic ***
+
+This is in the .git/config file and seems a way to pass the extra authorization header
+
+https://git-scm.com/docs/git-config
+https://git-scm.com/docs/git-config#Documentation/git-config.txt-httpextraHeader
+https://git-scm.com/docs/git-config#Documentation/git-config.txt---get-urlmatchnameURL
