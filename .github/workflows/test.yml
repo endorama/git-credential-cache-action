@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        sudo apt install dbus-x11
         sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
         git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
         eval `dbus-launch --sh-syntax`
