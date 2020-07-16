@@ -2,100 +2,19 @@
   <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 </p>
 
-# Create a JavaScript Action using TypeScript
+# git-credential-cache-action
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+This action aim to improve git credential usage inside GitHub Actions by leveraging the git built-in credential cache helper.
 
-This template includes compilication support, tests, a validation workflow, publishing, and versioning guidance.  
+[`gitcredentials`] is the mechanism git uses to get credentials when needed. This method is alternative to providing SSH keys and can be especially useful in non-interactives environment like CIs.
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+[`git-credential-cache`] is the git built-in helper for storing credentials temporarily in memory.
 
-## Create an action from this template
+By leveraging this action is possible to set credentials for specific host/username pairs without touching the filesystem in any way. Credentials will be readable only by the git process itself and as they live only in memory there should be no need for manual removal.
 
-Click the `Use this Template` and provide the new repo details for your action
+This is an alternative to using `git config ...` or `git-credential-store` helper.
 
-## Code in Master
+If you need to remove credentials after use you can use `git credential-cache erase` (you'll find an example in the tests) to manually remove credential pairs from the cache.
 
-Install the dependencies  
-```bash
-$ npm install
-```
-
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run pack
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
-
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run pack
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml)])
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+[gitcredentials]: https://git-scm.com/docs/gitcredentials
+[git-credential-cache]: https://git-scm.com/docs/git-credential-cache
