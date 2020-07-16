@@ -57,6 +57,7 @@ exports.gitConfigureCredentialCacheHelper = gitConfigureCredentialCacheHelper;
 function gitCredentialCacheStore(protocol, host, username, password) {
     const credentials = `protocol=${protocol}\nhost=${host}\nusername=${username}\npassword=${password}`;
     child_process_1.execSync(`echo "${credentials}" | git credential-cache store`);
+    child_process_1.execSync(`echo "protocol=${protocol}\nhost=${host}\nusername=${username}" | git credential-cache get`);
 }
 exports.gitCredentialCacheStore = gitCredentialCacheStore;
 
