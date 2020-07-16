@@ -12,4 +12,7 @@ export function gitCredentialCacheStore(
 ): void {
   const credentials = `protocol=${protocol}\nhost=${host}\nusername=${username}\npassword=${password}`
   execSync(`echo "${credentials}" | git credential-cache store`)
+  execSync(
+    `echo "protocol=${protocol}\nhost=${host}\nusername=${username}" | git credential-cache get`
+  )
 }
