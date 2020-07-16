@@ -23,7 +23,7 @@ jobs:
     - uses: ./
       with: 
         username: "${{ github.actor }}"
-        password: "${{ secrets.GITHUB_TOKEN }}"
+        password: "${{ secrets.PATH }}"
     - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}" | git credential-cache get
-    # we try to clone ourselves, as GITHUB_TOKEN should have permissions for doing so
-    - run: git clone https://github.com/endorama/git-credential-cache-action.git
+    # we try to clone a private repo with set credentials
+    - run: git clone https://github.com/endorama/git-credential-cache-ci-testing-repo.git
