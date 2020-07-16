@@ -24,4 +24,4 @@ jobs:
       with: 
         username: "${{ github.actor }}"
         password: "${{ secrets.GITHUB_TOKEN }}"
-    - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}" | git credential-cache get`
+    - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}" | git credential-cache get
