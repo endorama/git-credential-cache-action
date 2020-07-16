@@ -7,17 +7,21 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
+
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - run: |
         npm install
         npm run all
+
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: ./
       with: 
-        milliseconds: 1000
+        username: "${{ github.actor }}"
+        password: "${{ secrets.GITHUB_TOKEN }}"
+    - run: echo "protocol=https\nhost=github.com\nusername=${{ github.actor }}" | git credential-cache get`
