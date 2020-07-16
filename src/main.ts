@@ -14,7 +14,7 @@ async function run(): Promise<void> {
     core.info(`Credentials timeout set to ${timeout}`)
 
     action.gitCredentialCacheStore(protocol, host, username, password)
-    core.debug(
+    core.info(
       `Stored credentials for ${protocol}://${username}:REDACTED@${host}`
     )
   } catch (error) {
