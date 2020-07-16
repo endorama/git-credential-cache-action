@@ -48,7 +48,15 @@ module.exports =
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const child_process_1 = __webpack_require__(129);
 function gitConfigureCredentialCacheHelper(timeout) {
     child_process_1.execSync(`git config credential.helper 'cache --timeout=${timeout}'`);
@@ -57,7 +65,8 @@ exports.gitConfigureCredentialCacheHelper = gitConfigureCredentialCacheHelper;
 function gitCredentialCacheStore(protocol, host, username, password) {
     const credentials = `protocol=${protocol}\nhost=${host}\nusername=${username}\npassword=${password}`;
     child_process_1.execSync(`echo "${credentials}" | git credential-cache store`);
-    child_process_1.execSync(`echo "protocol=${protocol}\nhost=${host}\nusername=${username}" | git credential-cache get`);
+    const res = child_process_1.execSync(`echo "protocol=${protocol}\nhost=${host}\nusername=${username}" | git credential-cache get`);
+    core.info(res.toString());
 }
 exports.gitCredentialCacheStore = gitCredentialCacheStore;
 
