@@ -1,10 +1,25 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'git-credential-cache-action'
+description: 'Use git built-in credential-cache helper for secure in memory git authentication'
+author: 'Edoardo Tenani'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  timeout:
+    description: 'Git credentials cache timeout'
+    default: '900'
+    required: false
+  protocol:
+    description: 'Git protocol to use for the specified credentials'
+    default: 'https'
+    required: false
+  host:
+    description: 'Git hsot to use for the specified credentials'
+    default: 'github.com'
+    required: false
+  username:
+    description: 'Git username'
+    required: true
+  password:
+    description: 'Git password'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
