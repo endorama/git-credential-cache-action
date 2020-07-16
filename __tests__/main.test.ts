@@ -40,15 +40,15 @@ test('set git credentials', async () => {
 //   process.env['INPUT_TIMEOUT'] = '500'
 //   process.env['INPUT_PROTOCOL'] = 'https'
 //   process.env['INPUT_HOST'] = 'github.com'
-// 
+//
 //   const ip = path.join(__dirname, '..', 'lib', 'main.js')
 //   const options: cp.ExecSyncOptions = {
 //     env: process.env
 //   }
-// 
+//
 //   const somethingSpy = jest.spyOn(action, 'gitConfigureCredentialCacheHelper')
-// 
+//
 //   console.log(cp.execSync(`node ${ip}`, options).toString())
-// 
+//
 //   expect(somethingSpy).toHaveBeenCalledWith(500)
 // })
