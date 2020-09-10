@@ -2,6 +2,10 @@
   <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 </p>
 
+# NOTE
+
+`credential-cache` cannot be used because "each step runs in a separate process". As steps cannot share env variables, is legit to think they can't share memory too.
+
 # git-credential-cache-action
 
 This action aim to improve git credential usage inside GitHub Actions by leveraging the git built-in credential cache helper.
